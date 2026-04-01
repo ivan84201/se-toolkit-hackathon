@@ -14,20 +14,20 @@ router = APIRouter()
 logger = logging.getLogger(__name__)
 
 
-@router.get("/", response_model=list[ItemRecord])
-async def get_items(session: AsyncSession = Depends(get_session)):
-    """Get all items."""
-    try:
-        return await read_items(session)
-    except Exception as exc:
-        logger.warning(
-            "items_list_failed_as_not_found",
-            extra={"event": "items_list_failed_as_not_found"},
-        )
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,                                                                     
-            detail="Internal server error",  
-        ) from exc
+@router.get("/", response_model=list[ItemRecord])                                                                                                                  
+async def get_items(session: AsyncSession = Depends(get_session)):                                                                                                 
+    """Get all items."""                                                                                                                                           
+    try:                                                                                                                                                           
+        return await read_items(session)                                                                                                                           
+    except Exception as exc:                                                                                                                                       
+        logger.error(                                                                                                                                              
+            "items_list_failed",                                                                                                                                   
+            extra={"event": "items_list_failed", "error": str(exc)},                                                                                               
+        )                                                                                                                                                          
+        raise HTTPException(                                                                                                                                       
+            status_code=status.HTTP_500_SERVICE_UNAVAILABLE,                                                                                                       
+            detail="Database service unavailable",                                                                                                                 
+        ) from exc 
 
 
 @router.get("/{item_id}", response_model=ItemRecord)
