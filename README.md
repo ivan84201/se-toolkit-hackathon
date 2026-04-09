@@ -31,28 +31,45 @@ find @LLMFileManagerBot in telegram, upload your files, ask questions in plain t
 ## OS required - Ubuntu 24.04
 
 ## Required tools:
+
 docker
+
 git
+
 JSON
+
 uv
+
 Qwen LLM provider
 
 ## Setup (paste commands to terminal 1 by 1):
 git clone https://github.com/ivan84201/se-toolkit-hackathon
+
 cd se-toolkit-hackathon
+
 uv sync --dev
+
 cp .env.docker.example .env.docker.secret
+
 ## fill in .env.docker.secret with your data (see comments and values in <>)
 cd nanobot
+
 uv run nanobot onboard -c config.json
+
 ## fill in nanobot config.json
 ## Set up the custom provider (any OpenAI-compatible endpoint) and point it to the Qwen Code API:
 agents.defaults.workspace ./workspace
+
 agents.defaults.model coder-model
+
 agents.defaults.provider custom
+
 providers.custom.apiKey your QWEN_CODE_API_KEY from .env.docker.secret
+
 providers.custom.apiBase http://localhost:42005/v1
 ## To start docker containers:
 docker compose --env-file .env.docker.secret up -d
+
 docker compose --env-file .env.docker.secret build
+
 docker compose --env-file .env.docker.secret build # second time if postgres crashed
