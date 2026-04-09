@@ -6,9 +6,9 @@ stores user files, tags them for easier navigation, answer questions based on th
 
 ### Demo:
 
-![demo1](1.png)
+![demo1](1.PNG)
 
-![demo2](2.png)
+![demo2](2.PNG)
 
 ### Product context:
 
